@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Analysis Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+/* ====== Analysis Container ====== */
+.analysis-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+
+/* ====== Analysis Header ====== */
+.analysis-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 30px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.analysis-header h1 {
+  color: #2c3e50;
+  font-size: 2.5em;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.analysis-header p {
+  color: #7f8c8d;
+  font-size: 1.2em;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ====== Stats Grid ====== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.stat-number {
+  font-size: 2.5em;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  color: #7f8c8d;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Stat Color Variants */
+.safe-stat { color: #27ae60; }
+.fraud-stat { color: #e74c3c; }
+.total-stat { color: #3498db; }
+.accuracy-stat { color: #9b59b6; }
+
+/* ====== Charts Container ====== */
+.charts-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.chart-card {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.chart-card:hover {
+  transform: translateY(-3px);
+}
+
+.chart-title {
+  font-size: 1.4em;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+  border-bottom: 3px solid #3498db;
+  padding-bottom: 10px;
+}
+
+.chart-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.full-width-chart {
+  grid-column: 1 / -1;
+}
+
+.chart-description {
+  margin-top: 15px;
+  color: #7f8c8d;
+  font-size: 0.95em;
+  text-align: center;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+/* ====== Insights Section ====== */
+.insights-section {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  margin-top: 30px;
+}
+
+.insights-title {
+  font-size: 1.6em;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.insight-item {
+  background: #f8f9fa;
+  padding: 15px;
+  margin: 10px 0;
+  border-left: 4px solid #3498db;
+  border-radius: 0 8px 8px 0;
+}
+
+/* ====== Responsive Design ====== */
+@media (max-width: 768px) {
+  .charts-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .analysis-header h1 {
+    font-size: 2em;
+  }
+  
+  .chart-card {
+    padding: 20px;
+  }
+}
+  </style>
+</head>
+<body>
+  {% include 'navbar.html' %}
+  
+  <div class="analysis-container">
+    <div class="analysis-header">
+      <h1>📊 Fraud Detection Analysis Dashboard</h1>
+      <p>Comprehensive visualization and insights from your fraud detection model training results</p>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number safe-stat">{{ safe_count }}</div>
+        <div class="stat-label">Safe Transactions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number fraud-stat">{{ fraud_count }}</div>
+        <div class="stat-label">Fraud Transactions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number total-stat">{{ total_count }}</div>
+        <div class="stat-label">Total Transactions</div>
+      </div>
+    </div>
+
+    <!-- Charts Grid -->
+    <div class="charts-container">
+      <!-- Fraud vs Safe Distribution -->
+      <div class="chart-card">
+        <h3 class="chart-title">🔍 Transaction Distribution</h3>
+        <img src="data:image/png;base64,{{ pie_chart }}" alt="Fraud vs Safe Distribution" class="chart-image">
+        <div class="chart-description">
+          Distribution of fraudulent vs safe transactions in your dataset. 
+          This helps understand the class balance in your training data.
+        </div>
+      </div>
+
+      <!-- Model Training Progress -->
+      <div class="chart-card">
+        <h3 class="chart-title">📈 Model Training Progress</h3>
+        <img src="data:image/png;base64,{{ acc_chart }}" alt="Model Training Progress" class="chart-image">
+        <div class="chart-description">
+          Model learning progress during training. Shows how the algorithm improves 
+          its fraud detection capabilities over multiple training iterations.
+        </div>
+      </div>
+
+      <!-- Category Analysis -->
+      <div class="chart-card full-width-chart">
+        <h3 class="chart-title">🏷️ Fraud Distribution by Transaction Category</h3>
+        <img src="data:image/png;base64,{{ category_chart }}" alt="Category-wise Fraud Analysis" class="chart-image">
+        <div class="chart-description">
+          Analysis of fraud patterns across different transaction categories. 
+          Helps identify which transaction types are most vulnerable to fraud.
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

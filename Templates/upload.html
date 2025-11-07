@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Upload Dataset</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    /* ====== Upload Container ====== */
+.upload-container {
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 40px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.upload-container h1 {
+  margin-top: 0;
+  font-size: 32px;
+  font-weight: 700;
+  color: #1f2d3a;
+}
+
+.upload-container p {
+  color: #555;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+/* ====== Upload Form ====== */
+.upload-form {
+  margin-top: 30px;
+}
+
+/* ====== File Input ====== */
+.file-input {
+  margin: 20px 0;
+  padding: 12px;
+  border: 2px dashed #103a5e;
+  border-radius: 8px;
+  background: #f8fafc;
+  transition: all 0.3s ease;
+}
+
+.file-input:hover {
+  border-color: #0d2f4a;
+  background: #f1f5f9;
+}
+
+.file-input input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* ====== Submit Button ====== */
+.submit-btn {
+  padding: 16px 40px;
+  background: #103a5e;
+  border: none;
+  color: white;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(16, 58, 94, 0.3);
+  transition: all 0.25s ease;
+  margin-top: 20px;
+  font-weight: 600;
+}
+
+.submit-btn:hover {
+  background: #0d2f4a;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(16, 58, 94, 0.4);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 5px 15px rgba(16, 58, 94, 0.3);
+}
+
+/* ====== Upload Info ====== */
+.upload-info {
+  margin-top: 20px;
+  color: #666;
+  font-size: 14px;
+}
+
+.upload-info p {
+  margin: 5px 0;
+  color: #777;
+}
+  </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="upload-container">
+        <h1>📊 Upload Your Dataset</h1>
+        <p>Select a CSV file to get started with model training</p>
+        
+        <form method="POST" enctype="multipart/form-data" class="upload-form">
+            <div class="file-input">
+                <input type="file" name="dataset" accept=".csv" required>
+            </div>
+            <button type="submit" class="submit-btn">Upload & Continue</button>
+        </form>
+        
+        <div class="upload-info">
+            <p>Supported formats: CSV files only</p>
+            <p>Maximum file size: 10MB</p>
+        </div>
+    </div>
+</body>
+</html>

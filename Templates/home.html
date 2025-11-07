@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>UPI Fraud Detection</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  {% include 'navbar.html' %}
+  <main class="landing">
+    <!-- Enhanced Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>UPI Fraud Detection</h1>
+        <p class="subtitle">
+          Detect fraudulent UPI transactions using machine learning models trained on
+          transaction patterns.
+        </p>
+        <div class="btn-row">
+          <a id="check-btn" href="{{ url_for('login') }}" class="primary-btn">
+            <i class="fas fa-shield-alt"></i> Check Predictions
+          </a>
+          <a id="learn-btn" href="#about" class="primary-btn outline">
+            <i class="fas fa-info-circle"></i> Learn More
+          </a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="{{ url_for('static', filename='images/upi-image-2-800x430.jpg') }}" alt="UPI Fraud Detection">
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+      <div class="about-content">
+        <h1>About Our Solution</h1>
+        <p>This project is designed to detect and prevent UPI fraud by analyzing transaction datasets with machine learning. Users can log in, upload past transaction data, and enter UPI details for verification.</p>
+        <p>The system matches the provided details with the dataset, reads the outcome column, and delivers a reliable fraud detection result.</p>
+        
+        <!-- Process Visualization -->
+        <div class="process-steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Login</h3>
+            <p>First step login to access the system</p>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Upload Dataset</h3>
+            <p>Provide UPI transaction data for analysis</p>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <h3>Pattern Analysis</h3>
+            <p>Machine learning algorithms detect anomalies</p>
+          </div>
+          
+          <div class="step">
+            <div class="step-number">4</div>
+            <h3>Result Delivery</h3>
+            <p>showing if the transaction is Safe or Fraud</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+      <div class="section-header">
+        <h2>How It Works</h2>
+        <p>Our four-step process to secure your transactions</p>
+      </div>
+      <div class="features-container">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-sign-in-alt"></i>
+          </div>
+          <h3>Login</h3>
+          <p>Access your secure account to begin the fraud detection process.</p>
+          <a href="{{ url_for('login') }}" class="feature-link">Login now <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-upload"></i>
+          </div>
+          <h3>Upload Dataset</h3>
+          <p>Provide UPI transaction data (CSV) to train and test fraud detection models.</p>
+          <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-brain"></i>
+          </div>
+          <h3>Enter UPI Details</h3>
+          <p>Enter UPI Details which you want to check.</p>
+          <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>View Results</h3>
+          <p>View Result if the transaction is Safe or Fraud</p>
+          <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>UPI Fraud Detection</h3>
+          <p>Advanced machine learning solutions to protect your financial transactions from fraud.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact Us</h4>
+          <p><i class="fas fa-envelope"></i> support@upifrauddetection.com</p>
+          <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2023 UPI Fraud Detection. All rights reserved.</p>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,20 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <div class="section-title">
+  <h1>About Us</h1>
+</div>
+
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  {% include 'navbar.html' %}
+  <div class="section" style="max-width:800px; margin:80px auto;">
+    <h1>About Us</h1>
+    <p>This project is designed to detect and prevent UPI fraud by analyzing transaction datasets with machine learning. Users can log in, upload past transaction data, and enter UPI details for verification. </p>
+    <p>The system matches the provided details with the dataset, reads the outcome column, and delivers a reliable fraud detection result.</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<header class="navbar">
+<style>
+/* Header wrapper: full-width bar that sticks to the top */
+header.navbar {
+  width: 100%;
+  background-color: #163b5c;     /* deep blue from your screenshot */
+  position: sticky;              /* remain visible on scroll */
+  top: 0;
+  z-index: 1100;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08); /* subtle shadow like the image */
+  /* Use comfortable horizontal padding to position items */
+  padding: 14px 36px;
+  display: flex;
+  justify-content: space-between; /* logo left, links right */
+  align-items: center;
+  gap: 12px;
+}
+
+/* Logo (left) — big, bold and white */
+.nav-logo {
+  color: #ffffff;
+  font-size: 22px;      /* same visual weight as your screenshot */
+  font-weight: 700;
+  letter-spacing: 0.1px;
+  line-height: 1;
+  white-space: nowrap;  /* prevents wrapping on small width */
+}
+
+/* Links container (right) — inline links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;            /* spacing between link items */
+  flex-wrap: wrap;      /* will wrap if screen is very narrow */
+}
+
+/* Each link style */
+.nav-links a {
+  color: #ffffff !important;      /* keep links white */
+  font-weight: 500;
+  font-size: 15px;
+  padding: 6px 10px;              /* comfortable click area */
+  border-radius: 6px;             /* small rounded highlight */
+  transition: background-color .18s ease, color .18s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;                       /* space for optional icon */
+}
+
+/* Hover: subtle light background (matches screenshot look) */
+.nav-links a:hover {
+  background: rgba(255,255,255,0.06);
+  color: #ffffff !important;
+}
+
+/* Active link (if you add a class 'active' server-side) */
+.nav-links a.active {
+  background: rgba(255,255,255,0.12);
+  color: #ffffff !important;
+}
+
+/* Small screens: compress spacing and allow wrapping */
+@media (max-width: 900px) {
+  header.navbar {
+    padding: 12px 22px;
+  }
+  .nav-links {
+    gap: 12px;
+  }
+  .nav-links a {
+    font-size: 14px;
+    padding: 6px 8px;
+  }
+}
+
+/* Very small screens: stack links below logo (non-hamburger fallback) */
+/* If you prefer a hamburger menu, I can add a JS/CSS toggle for that. */
+@media (max-width: 560px) {
+  header.navbar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px 16px;
+    gap: 10px;
+  }
+
+  /* center logo on small screens */
+  .nav-logo {
+    text-align: left;
+    font-size: 20px;
+  }
+
+  /* nav-links become a row that can wrap */
+  .nav-links {
+    justify-content: flex-end;
+    width: 100%;
+    padding-top: 4px;
+    gap: 10px;
+  }
+}
+</style>
+  <div class="nav-logo">UPI Fraud Detection</div>
+  <div class="nav-links">
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('home') }}#about">About Us</a>
+    {% if session.get('logged_in') %}
+      <a href="{{ url_for('upload') }}">Upload</a>
+      <a href="{{ url_for('train') }}">Train</a>
+      <a href="{{ url_for('check') }}">Check</a>
+      <a href="{{ url_for('analysis') }}">Analysis</a>
+      <a href="{{ url_for('logout') }}">Logout</a>
+    {% else %}
+      <a href="{{ url_for('login') }}">Login</a>
+    {% endif %}
+  </div>
+</header>

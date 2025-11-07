@@ -1,0 +1,243 @@
+{% include 'navbar.html' %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<style>
+    /* ====== Check Page Container ====== */
+.check-page {
+  max-width: 700px;
+  margin: 40px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.check-page .page-title {
+  text-align: center;
+  font-size: 26px;
+  margin-bottom: 5px;
+  color: #1f2d3a;
+  font-weight: 700;
+}
+
+.check-page .page-subtitle {
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 25px;
+  color: #555;
+}
+
+/* ====== Check Form Grid ====== */
+.check-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.check-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.check-form .form-group.full-width {
+  grid-column: span 2;
+  text-align: center;
+}
+
+.check-form label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #2c3e50;
+  font-size: 14px;
+}
+
+.check-form input,
+.check-form select {
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  font-size: 14px;
+  background: #f9fbfd;
+  transition: all 0.3s ease;
+}
+
+.check-form input:focus,
+.check-form select:focus {
+  outline: none;
+  border-color: #163b5c;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(22, 59, 92, 0.1);
+}
+
+.check-form select {
+  cursor: pointer;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.check-form input[type="date"] {
+  cursor: pointer;
+}
+
+/* ====== Check Page Button ====== */
+.check-page .btn {
+  background: #163b5c;
+  color: white;
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(22, 59, 92, 0.3);
+}
+
+.check-page .btn:hover {
+  background: #0d2f4a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(22, 59, 92, 0.4);
+}
+
+.check-page .btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(22, 59, 92, 0.3);
+}
+
+/* ====== Result Box ====== */
+.check-page .result-box {
+  margin-top: 25px;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+}
+
+.check-page .result-box h2 {
+  color: #163b5c;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 22px;
+}
+
+.check-page .result-box p {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #2c3e50;
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 640px) {
+  .check-form {
+    grid-template-columns: 1fr;
+  }
+  
+  .check-page {
+    padding: 20px;
+    margin: 20px;
+  }
+  
+  .check-page .page-title {
+    font-size: 22px;
+  }
+}
+</style>
+<div class="check-page">
+    <h1 class="page-title">Enter UPI Details</h1>
+    <p class="page-subtitle">Fill in the details below to check if a transaction is fraudulent.</p>
+
+    <form action="{{ url_for('predict') }}" method="post" class="check-form">
+        <div class="form-group">
+            <label>Transaction Hour (0-23):</label>
+            <input type="number" name="trans_hour" min="0" max="23" required>
+        </div>
+
+        <div class="form-group">
+            <label>Transaction Date:</label>
+            <input type="date" name="transaction_date" required>
+        </div>
+
+        <div class="form-group">
+            <label for="state">State:</label>
+            <select name="state" id="state" class="form-select" required>
+                <option value="">-- Select State --</option>
+                <option>Andhra Pradesh</option>
+                <option>Assam</option>
+                <option>Bihar</option>
+                <option>Chhattisgarh</option>
+                <option>Delhi</option>
+                <option>Goa</option>
+                <option>Gujarat</option>
+                <option>Haryana</option>
+                <option>Jharkhand</option>
+                <option>Karnataka</option>
+                <option>Kerala</option>
+                <option>Madhya Pradesh</option>
+                <option>Maharashtra</option>
+                <option>Odisha</option>
+                <option>Punjab</option>
+                <option>Rajasthan</option>
+                <option>Tamil Nadu</option>
+                <option>Telangana</option>
+                <option>Uttar Pradesh</option>
+                <option>West Bengal</option>
+                <option>Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Category:</label>
+            <select name="category" id="category" class="form-select" required>
+                <option value="">-- Select Category --</option>
+                <option>Bills</option>
+                <option>Clothing</option>
+                <option>Education</option>
+                <option>Entertainment</option>
+                <option>Food</option>
+                <option>Fuel</option>
+                <option>Groceries</option>
+                <option>Health</option>
+                <option>Insurance</option>
+                <option>Investment</option>
+                <option>Loan Repayment</option>
+                <option>Medical</option>
+                <option>Mobile Recharge</option>
+                <option>Rent</option>
+                <option>Shopping</option>
+                <option>Subscription</option>
+                <option>Tax Payment</option>
+                <option>Tickets/Travel</option>
+                <option>Transfer to Friend</option>
+                <option>Utility Services</option>
+                <option>Wallet Top-up</option>
+                <option>Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>UPI Number:</label>
+            <input type="text" name="upi_number" required>
+        </div>
+
+        <div class="form-group">
+            <label>Customer Age:</label>
+            <input type="number" name="age" min="0" max="120" required>
+        </div>
+
+        <div class="form-group">
+            <label>Transaction Amount (Optional):</label>
+            <input type="number" name="trans_amt" step="0.01" min="0" placeholder="Enter amount (optional)">
+        </div>
+
+        <div class="form-group full-width">
+            <button type="submit" class="btn">Check</button>
+        </div>
+    </form>
+
+    {% if prediction %}
+    <div class="result-box">
+        <h2>Prediction Result</h2>
+        <p>{{ prediction }}</p>
+    </div>
+    {% endif %}
+</div>
